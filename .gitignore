@@ -1,6 +1,9 @@
 # compiled output
 /dist
 /node_modules
+package-lock.json
+/.env
+/src/uploads
 
 # Logs
 logs
@@ -13,7 +16,9 @@ lerna-debug.log*
 
 # OS
 .DS_Store
+.env
 
+/src/uploads
 # Tests
 /coverage
 /.nyc_output
@@ -33,3 +38,4 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/src/uploads/claim/

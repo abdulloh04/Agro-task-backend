@@ -1,0 +1,164 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RegionType {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  nameRu: String
+  districts: [DistrictType!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DistrictType {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  nameRu: String
+  region: RegionType
+  event: [EventType!]
+}
+
+type ViewsEventType {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  event: EventType
+  ipHash: String
+}
+
+type EventType {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  eventName: String
+  eventTitle: String
+  eventDescription: String
+  eventAddress: String
+  eventStartDate: DateTime
+  eventEndDate: DateTime
+  viewCount: Float
+  district: DistrictType
+  user: UserType
+  views: [ViewsEventType!]
+}
+
+type UserType {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  username: String
+  password: String
+  events: [EventType!]
+}
+
+type EventFindAllType {
+  statusCode: Float
+  message: String
+  total: String
+  data: [EventType!]
+}
+
+type EventFindType {
+  statusCode: Float
+  message: String
+  total: String
+  data: EventType
+}
+
+type voidType {
+  statusCode: Float
+  message: String
+  total: String
+  data: String
+}
+
+type AuthResponseType {
+  id: Float!
+  username: String!
+  accessToken: String!
+}
+
+type LoginType {
+  statusCode: Float
+  message: String
+  total: String
+  data: AuthResponseType
+}
+
+type Query {
+  findRegion: [RegionType!]!
+  findDist(id: Int!): [DistrictType!]!
+  findAll(input: FindInput!): EventFindAllType!
+  findOne(id: Int!): EventFindType!
+  user(id: Int!): UserType!
+}
+
+input FindInput {
+  startDate: String
+  endDate: String
+  regionId: Float
+  perPage: Float!
+  page: Float!
+}
+
+type Mutation {
+  createEvent(input: CreateEventInput!): voidType!
+  updateEvent(input: UpdateEventInput!): voidType!
+  disableLocation(id: Int!): EventFindType!
+  removeEvent(id: Int!): voidType!
+  viewEvent(id: Int!): String!
+  createUser(createUserInput: CreateUserInput!): UserType!
+  updateUser(updateUserInput: UpdateUserInput!): UserType!
+  removeUser(id: Int!): UserType!
+  login(input: AuthDto!): UserType!
+  register(input: RegisterDto!): LoginType!
+}
+
+input CreateEventInput {
+  userId: Float!
+  name: String!
+  title: String!
+  desc: String!
+  address: String!
+  startDate: String!
+  endDate: String!
+  districtId: Float!
+}
+
+input UpdateEventInput {
+  id: Float!
+  userId: Float
+  name: String
+  title: String
+  desc: String
+  address: String
+  startDate: DateTime
+  endDate: DateTime
+  districtId: Float
+}
+
+input CreateUserInput {
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  exampleField: Int
+  id: Int!
+}
+
+input AuthDto {
+  username: String!
+  password: String!
+}
+
+input RegisterDto {
+  username: String!
+  password: String!
+  repeatPassword: String!
+}

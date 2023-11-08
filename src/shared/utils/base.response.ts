@@ -1,0 +1,9 @@
+export interface BaseResponse<T> {
+
+    statusCode: number;
+    message?: string;
+    data: T | null;
+    total?: number;
+
+}
+
